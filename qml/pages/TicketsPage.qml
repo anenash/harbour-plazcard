@@ -20,6 +20,10 @@ Page {
 
         onTicketsModelChanged: {
             internal.loadData = false
+            for(var i in ticketsInfo.ticketsModel) {
+//                console.log(JSON.stringify(ticketsInfo.ticketsModel[i].data))
+                ticketsModel.append(ticketsInfo.ticketsModel[i].data)
+            }
         }
 
         onNoTicketsFound: {
@@ -27,52 +31,66 @@ Page {
             internal.noTicketsFound = true
         }
     }
+    ListModel {
+        id: ticketsModel
+    }
 
     Component.onCompleted: {
         ticketsInfo.getTickets(url)
     }
+    SilicaFlickable {
+        anchors.fill: parent
 
-    PageHeader {
-        id: header
+        PageHeader {
+            id: header
 
-        anchors.top: parent.top
-        title: qsTr("Railway trip")
-    }
+            anchors.top: parent.top
+            title: qsTr("Railway trip")
+        }
 
-    SilicaListView {
-        id: ticketsListView
+        SilicaListView {
+            id: ticketsListView
 
-        clip: true
-        spacing: Theme.paddingMedium
-        width: parent.width
-        anchors.top: header.bottom
-        anchors.bottom: parent.bottom
-        model: ticketsInfo.ticketsModel
+            clip: true
+            spacing: Theme.paddingMedium
+            width: parent.width
+            anchors.top: header.bottom
+            anchors.bottom: parent.bottom
+            model: ticketsModel //ticketsInfo.ticketsModel
 
-        section {
-            property: 'direction'
-            delegate: SectionHeader {
-                text: model.data.direction?qsTr("Forth"):qsTr("Back")
+    //        section {
+    //            property: "direction"
+    //            delegate: SectionHeader {
+    //                text: "Railway trip111"//model.direction /*?qsTr("Forth"):qsTr("Back")*/
+    //            }
+    //        }
+
+            section {
+                property: "direction"
+                criteria: ViewSection.FullString
+                delegate: PageHeader {
+                    title: section?qsTr("Forth"):qsTr("Back")
+                }
             }
-        }
 
-        delegate: TicketDelegate {
-            ticket: model.data
-        }
+            delegate: TicketDelegate {
+                ticket: ticketsModel.get(index)//model.data
+            }
 
-        VerticalScrollDecorator {flickable: ticketsListView}
+            VerticalScrollDecorator {flickable: ticketsListView}
 
 
-        BusyIndicator {
-            running: internal.loadData
-            size: BusyIndicatorSize.Large
-            anchors.centerIn: parent
-        }
+            BusyIndicator {
+                running: internal.loadData
+                size: BusyIndicatorSize.Large
+                anchors.centerIn: parent
+            }
 
-        ViewPlaceholder {
-            enabled: internal.noTicketsFound
-            text: qsTr("No tickets found")
-            hintText: qsTr("Please, change the search request")
+            ViewPlaceholder {
+                enabled: !internal.loadData && ticketsModel.count === 0
+                text: qsTr("No tickets found")
+                hintText: qsTr("Please, change the search request")
+            }
         }
     }
 }

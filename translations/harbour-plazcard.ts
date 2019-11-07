@@ -59,6 +59,25 @@
     </message>
 </context>
 <context>
+    <name>RouteInfoPage</name>
+    <message>
+        <source>Information</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Seats: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Price: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Buy</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SearchStationDialog</name>
     <message>
         <source>Search stations:</source>
@@ -84,19 +103,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Buy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Seats: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Duration: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Price: </source>
         <translation type="unfinished"></translation>
     </message>
 </context>

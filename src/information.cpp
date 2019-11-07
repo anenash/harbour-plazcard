@@ -37,10 +37,12 @@ Information::Information(QObject *parent) : QObject(parent)
             if (object.contains("routeStationList"))
             {
                 QJsonArray stationsList = object.value("routeStationList").toObject().value("stationList").toArray();
+                m_routes.clear();
                 for (auto station : stationsList)
                 {
                     m_routes.append(new DataModel(station.toObject()));
                 }
+                emit routeModelChanged(m_routes);
             }
         }
     });
@@ -79,6 +81,7 @@ QString Information::getBuyUrl(const QString &url)
 void Information::getRoute(const QString &link)
 {
     QUrl url = "https://www.tutu.ru/" + link;
+    qDebug() << "url" << url;
     m_manager.performRequest(RequestType::Get, url);
 }
 

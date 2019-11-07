@@ -59,6 +59,25 @@
     </message>
 </context>
 <context>
+    <name>RouteInfoPage</name>
+    <message>
+        <source>Information</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Seats: </source>
+        <translation type="unfinished">Места: </translation>
+    </message>
+    <message>
+        <source>Price: </source>
+        <translation type="unfinished">Цена: </translation>
+    </message>
+    <message>
+        <source>Buy</source>
+        <translation type="unfinished">Купить</translation>
+    </message>
+</context>
+<context>
     <name>SearchStationDialog</name>
     <message>
         <source>Search stations:</source>
@@ -84,43 +103,31 @@
         <translation> м</translation>
     </message>
     <message>
-        <source>Buy</source>
-        <translation>Купить</translation>
-    </message>
-    <message>
-        <source>Seats: </source>
-        <translation>Места: </translation>
-    </message>
-    <message>
         <source>Duration: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Price: </source>
-        <translation type="unfinished"></translation>
+        <translation>Время в пути: </translation>
     </message>
 </context>
 <context>
     <name>TicketsPage</name>
     <message>
         <source>No tickets found</source>
-        <translation type="unfinished"></translation>
+        <translation>Билетов не найдено</translation>
     </message>
     <message>
         <source>Please, change the search request</source>
-        <translation type="unfinished"></translation>
+        <translation>Пожалуйста, измените запрос</translation>
     </message>
     <message>
         <source>Railway trip</source>
-        <translation type="unfinished">Железнодорожная поездка</translation>
+        <translation>Железнодорожные билеты</translation>
     </message>
     <message>
         <source>Forth</source>
-        <translation type="unfinished"></translation>
+        <translation>Туда</translation>
     </message>
     <message>
         <source>Back</source>
-        <translation type="unfinished"></translation>
+        <translation>Обратно</translation>
     </message>
 </context>
 </TS>
