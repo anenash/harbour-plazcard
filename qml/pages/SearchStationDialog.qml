@@ -102,9 +102,20 @@ Dialog {
             delegate: ListItem {
                 height: Theme.itemSizeExtraSmall
                 width: parent.width
+                Icon {
+                    id: icon
 
-                Label {
                     anchors.left: parent.left
+                    anchors.leftMargin: Theme.horizontalPageMargin
+                    anchors.verticalCenter: parent.verticalCenter
+
+                    color: Theme.highlightColor
+                    height: Theme.iconSizeMedium
+                    width: Theme.iconSizeMedium
+                    source: "../images/city.svg"
+                }
+                Label {
+                    anchors.left: icon.right
                     anchors.leftMargin: Theme.horizontalPageMargin
                     anchors.verticalCenter: parent.verticalCenter
                     width: parent.width

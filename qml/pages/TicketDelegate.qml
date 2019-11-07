@@ -34,18 +34,30 @@ ListItem {
         }
     }
 
-    Label {
-        id: trainNum
+    Icon {
+        id: icon
 
         anchors.left: parent.left
         anchors.leftMargin: Theme.horizontalPageMargin
+
+        color: Theme.highlightColor
+        height: Theme.iconSizeMedium
+        width: Theme.iconSizeMedium
+        source: "../images/train.svg"
+    }
+    Label {
+        id: trainNum
+
+        anchors.left: icon.right
+        anchors.leftMargin: Theme.horizontalPageMargin
+        anchors.verticalCenter: icon.verticalCenter
         font.bold: true
         text: ticket.trainNumber + " " + ticket.trainName
     }
     Text {
         id: depStation
 
-        anchors.top: trainNum.bottom
+        anchors.top: icon.bottom
         anchors.left: parent.left
         anchors.leftMargin: Theme.horizontalPageMargin
         anchors.right: ticketPrice.left

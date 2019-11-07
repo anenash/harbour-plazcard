@@ -31,6 +31,7 @@ DISTFILES += qml/harbour-plazcard.qml \
     qml/pages/TicketDelegate.qml \
     qml/pages/TicketsPage.qml \
     qml/pages/WebPage.qml \
+    qml/images/*.svg \
     rpm/harbour-plazcard.changes.in \
     rpm/harbour-plazcard.changes.run.in \
     rpm/harbour-plazcard.spec \
