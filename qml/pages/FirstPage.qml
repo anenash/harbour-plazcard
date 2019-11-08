@@ -56,21 +56,12 @@ Page {
                 title: qsTr("Railway tickets")
             }
 
-            ListItem {
+            ValueButton {
                 id: originSelector
 
-                contentHeight: Theme.itemSizeExtraSmall
+                label: qsTr("From:")
+                value: !internal.originText?qsTr('Select'):internal.originText
                 width: parent.width
-                Label {
-                    id: label
-                    anchors.left: parent.left
-                    anchors.leftMargin: Theme.horizontalPageMargin
-                    anchors.right: parent.right
-                    anchors.rightMargin: Theme.horizontalPageMargin
-                    anchors.verticalCenter: parent.verticalCenter
-                    text: !internal.origin?qsTr('Origin:'):internal.originText
-                    truncationMode: TruncationMode.Fade
-                }
 
                 onClicked: {
                     var dialog = pageStack.push(Qt.resolvedUrl("SearchStationDialog.qml"))
@@ -81,21 +72,12 @@ Page {
                     })
                 }
             }
-            ListItem {
+            ValueButton {
                 id: destinationSelector
 
-                contentHeight: Theme.itemSizeExtraSmall
+                label: qsTr("To:")
+                value: !internal.destination?qsTr('Select'):internal.destinationText
                 width: parent.width
-                Label {
-                    id: destinationLabel
-                    anchors.left: parent.left
-                    anchors.leftMargin: Theme.horizontalPageMargin
-                    anchors.right: parent.right
-                    anchors.rightMargin: Theme.horizontalPageMargin
-                    anchors.verticalCenter: parent.verticalCenter
-                    text: !internal.destination?qsTr('Destination:'):internal.destinationText
-                    truncationMode: TruncationMode.Fade
-                }
 
                 onClicked: {
                     var dialog = pageStack.push(Qt.resolvedUrl("SearchStationDialog.qml"))
@@ -178,8 +160,7 @@ Page {
                         url += "&date_second=" + secondDate
                     }
 
-                    console.log("Result url", url)
-//                    serachTickets.getTickets(url)
+                    main.searchString = internal.originText + " - " + internal.destinationText
                     pageStack.push(Qt.resolvedUrl("TicketsPage.qml"), {"url": url})
                 }
             }

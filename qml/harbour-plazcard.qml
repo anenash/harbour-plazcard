@@ -4,6 +4,9 @@ import "pages"
 
 ApplicationWindow
 {
+    id: main
+
+    property string searchString: qsTr("Plazcard")
     initialPage: Component { FirstPage { } }
     cover: Qt.resolvedUrl("cover/CoverPage.qml")
     allowedOrientations: defaultAllowedOrientations

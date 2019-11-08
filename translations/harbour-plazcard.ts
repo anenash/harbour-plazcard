@@ -13,22 +13,7 @@
     </message>
 </context>
 <context>
-    <name>CoverPage</name>
-    <message>
-        <source>My Cover</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>FirstPage</name>
-    <message>
-        <source>Origin:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Destination:</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>Departure date:</source>
         <translation type="unfinished"></translation>
@@ -57,9 +42,44 @@
         <source>Railway tickets</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>From:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>To:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PriceInfoDelegate</name>
+    <message>
+        <source>Type: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Price: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Top seats: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bottom seats: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Seats: </source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>RouteInfoPage</name>
+    <message>
+        <source>Information</source>
+        <translation type="unfinished"></translation>
+    </message>
     <message>
         <source>Buy</source>
         <translation type="unfinished"></translation>
@@ -94,6 +114,10 @@
         <source>Duration: </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Seats: </source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TicketsPage</name>
@@ -115,6 +139,13 @@
     </message>
     <message>
         <source>Back</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>harbour-plazcard</name>
+    <message>
+        <source>Plazcard</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

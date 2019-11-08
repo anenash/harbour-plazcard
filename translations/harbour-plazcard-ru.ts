@@ -13,22 +13,7 @@
     </message>
 </context>
 <context>
-    <name>CoverPage</name>
-    <message>
-        <source>My Cover</source>
-        <translation>Mein Cover</translation>
-    </message>
-</context>
-<context>
     <name>FirstPage</name>
-    <message>
-        <source>Origin:</source>
-        <translation>Пункт оправления:</translation>
-    </message>
-    <message>
-        <source>Destination:</source>
-        <translation>Пункт назначения:</translation>
-    </message>
     <message>
         <source>Departure date:</source>
         <translation>Дата оправления</translation>
@@ -57,12 +42,47 @@
         <source>About</source>
         <translation>О программе</translation>
     </message>
+    <message>
+        <source>From:</source>
+        <translation>Из:</translation>
+    </message>
+    <message>
+        <source>To:</source>
+        <translation>В:</translation>
+    </message>
+</context>
+<context>
+    <name>PriceInfoDelegate</name>
+    <message>
+        <source>Type: </source>
+        <translation>Тип: </translation>
+    </message>
+    <message>
+        <source>Price: </source>
+        <translation>Цена: </translation>
+    </message>
+    <message>
+        <source>Top seats: </source>
+        <translation>Верхняя полка: </translation>
+    </message>
+    <message>
+        <source>Bottom seats: </source>
+        <translation>Нижняя полка: </translation>
+    </message>
+    <message>
+        <source>Seats: </source>
+        <translation>Мест: </translation>
+    </message>
 </context>
 <context>
     <name>RouteInfoPage</name>
     <message>
+        <source>Information</source>
+        <translation>Информация</translation>
+    </message>
+    <message>
         <source>Buy</source>
-        <translation type="unfinished"></translation>
+        <translation>Купить</translation>
     </message>
 </context>
 <context>
@@ -94,6 +114,10 @@
         <source>Duration: </source>
         <translation>Время в пути: </translation>
     </message>
+    <message>
+        <source>Seats: </source>
+        <translation>Мест: </translation>
+    </message>
 </context>
 <context>
     <name>TicketsPage</name>
@@ -116,6 +140,13 @@
     <message>
         <source>Back</source>
         <translation>Обратно</translation>
+    </message>
+</context>
+<context>
+    <name>harbour-plazcard</name>
+    <message>
+        <source>Plazcard</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

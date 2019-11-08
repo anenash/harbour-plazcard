@@ -26,6 +26,7 @@ DISTFILES += qml/harbour-plazcard.qml \
     qml/cover/CoverPage.qml \
     qml/pages/AboutPage.qml \
     qml/pages/FirstPage.qml \
+    qml/pages/PriceInfoDelegate.qml \
     qml/pages/RouteInfoPage.qml \
     qml/pages/SearchStationDialog.qml \
     qml/pages/TicketDelegate.qml \

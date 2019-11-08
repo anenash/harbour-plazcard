@@ -112,7 +112,7 @@ Dialog {
                     color: Theme.highlightColor
                     height: Theme.iconSizeMedium
                     width: Theme.iconSizeMedium
-                    source: "../images/city.svg"
+                    source: "image://theme/icon-m-location"
                 }
                 Label {
                     anchors.left: icon.right

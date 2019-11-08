@@ -81,7 +81,7 @@ QString Information::getBuyUrl(const QString &url)
 void Information::getRoute(const QString &link)
 {
     QUrl url = "https://www.tutu.ru/" + link;
-    qDebug() << "url" << url;
+//    qDebug() << "url" << url;
     m_manager.performRequest(RequestType::Get, url);
 }
 
@@ -189,6 +189,7 @@ void Information::parseTicketsList(const QByteArray &result)
                QJsonArray prices = ticketsInfo.value("categories").toArray();
                QJsonArray ticketsPrice;
                int minPrice = std::numeric_limits<int>::max();
+               int seatsCount = 0;
                QString currency;
                for(auto price : prices)
                {
@@ -198,6 +199,7 @@ void Information::parseTicketsList(const QByteArray &result)
                        QJsonObject price;
                        QJsonObject _param = item.value("params").toObject();
                        price.insert("seatsCount", _param.value("seatsCount").toInt());
+                       seatsCount += _param.value("seatsCount").toInt();
                        price.insert("type", _param.value("type").toString());
                        QJsonObject _price = _param.value("price").toObject();
                        QString key = _price.keys().at(0);
@@ -217,6 +219,7 @@ void Information::parseTicketsList(const QByteArray &result)
                        ticketsPrice.push_back(priceValue);
                    }
                }
+               result.insert("seatsCount", seatsCount);
                result.insert("minPrice", minPrice);
                result.insert("currency", currency);
                result.insert("prices", ticketsPrice);

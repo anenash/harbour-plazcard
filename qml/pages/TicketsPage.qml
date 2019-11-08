@@ -13,6 +13,14 @@ Page {
 
         property bool loadData: true
         property bool noTicketsFound: false
+
+        function getDirection(value) {
+            if (value) {
+                return qsTr("Forth")
+            } else {
+                qsTr("Back")
+            }
+        }
     }
 
     Info {
@@ -58,23 +66,16 @@ Page {
             anchors.bottom: parent.bottom
             model: ticketsModel
 
-    //        section {
-    //            property: "direction"
-    //            delegate: SectionHeader {
-    //                text: "Railway trip111"//model.direction /*?qsTr("Forth"):qsTr("Back")*/
-    //            }
-    //        }
-
             section {
                 property: "direction"
                 criteria: ViewSection.FullString
                 delegate: PageHeader {
-                    title: section?qsTr("Forth"):qsTr("Back")
+                    title: internal.getDirection(section)
                 }
             }
 
             delegate: TicketDelegate {
-                ticket: ticketsModel.get(index)//model.data
+                ticket: ticketsModel.get(index)
             }
 
             VerticalScrollDecorator {flickable: ticketsListView}

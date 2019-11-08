@@ -37,7 +37,7 @@ ListItem {
         color: Theme.primaryColor
         height: Theme.iconSizeMedium
         width: Theme.iconSizeMedium
-        source: "../images/train.svg"
+        source: "image://theme/icon-m-train"
     }
     Label {
         id: trainNum
@@ -105,6 +105,18 @@ ListItem {
         text: qsTr("Duration: ") + internal.secondsToHms(ticket.tripDuration)
         color: Theme.secondaryColor
     }
+    Text {
+        id: seatsCount
+
+        anchors.top: durTime.bottom
+        anchors.left: parent.left
+        anchors.leftMargin: Theme.horizontalPageMargin
+        anchors.right: ticketPrice.left
+
+        font.pixelSize: Theme.fontSizeExtraSmall
+        text: qsTr("Seats: ") + ticket.seatsCount
+        color: Theme.secondaryColor
+    }
     Label {
         id: ticketPrice
 
@@ -116,70 +128,12 @@ ListItem {
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
     }
-//    ListView {
-//        id: tickets
-
-//        anchors.top: durTime.bottom
-//        anchors.left: parent.left
-//        anchors.leftMargin: Theme.horizontalPageMargin
-//        anchors.right: parent.right
-//        anchors.rightMargin: Theme.horizontalPageMargin
-//        anchors.bottom: buyButton.top
-//        spacing: Theme.paddingMedium
-//        visible: internal.expanded
-////        width: parent.width
-////        height: Theme.itemSizeLarge
-//        orientation: Qt.Horizontal//ListView.Horizontal
-//        model: ticket.prices //pricesModel
-
-//        delegate: Item {
-//            width: seats.width * 1.25
-//            height: Theme.itemSizeMedium
-//            Text {
-//                id: seats
-
-//                font.pixelSize: Theme.fontSizeExtraSmall
-//                color: Theme.secondaryColor
-//                text: qsTr("Seats: ") + seatsCount
-//            }
-//            Label {
-//                anchors.bottom: parent.bottom
-
-//                font.pixelSize: Theme.fontSizeExtraSmall
-//                color: Theme.secondaryColor
-//                text: qsTr("Price: ") + price
-//            }
-//        }
-//    }
-
-//    Button {
-//        id: buyButton
-
-//        visible: internal.expanded
-//        anchors.bottom: parent.bottom
-//        anchors.bottomMargin: Theme.paddingSmall
-//        anchors.horizontalCenter: parent.horizontalCenter
-//        text: qsTr("Buy")
-
-//        onClicked: {
-//            var url = ticketsInfo.getBuyUrl(ticket.buyUrl)
-//            console.log(url)
-//            pageStack.push(Qt.resolvedUrl("WebPage.qml"), {pageUrl: url})
-//        }
-//    }
 
     Separator {
         anchors.bottom: parent.bottom
     }
 
     onClicked: {
-        pageStack.push(Qt.resolvedUrl("RouteInfoPage.qml"), {data: ticket, prices: ticket.prices})
-//        internal.expanded = !internal.expanded
-
-//        if(internal.expanded) {
-//            contentHeight = Theme.itemSizeHuge * 2  + Theme.itemSizeMedium
-//        } else {
-//            contentHeight = Theme.itemSizeHuge  + Theme.itemSizeSmall
-//        }
+        pageStack.push(Qt.resolvedUrl("RouteInfoPage.qml"), {"routeData": ticket, "prices": ticket.prices})
     }
 }
