@@ -61,18 +61,6 @@
 <context>
     <name>RouteInfoPage</name>
     <message>
-        <source>Information</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Seats: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Price: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Buy</source>
         <translation type="unfinished"></translation>
     </message>

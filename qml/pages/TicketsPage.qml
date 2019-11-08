@@ -56,7 +56,7 @@ Page {
             width: parent.width
             anchors.top: header.bottom
             anchors.bottom: parent.bottom
-            model: ticketsModel //ticketsInfo.ticketsModel
+            model: ticketsModel
 
     //        section {
     //            property: "direction"
