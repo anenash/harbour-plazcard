@@ -6,6 +6,22 @@ ListItem {
 
     contentHeight: Theme.itemSizeLarge
 
+
+    function getCarType(type) {
+        switch(type) {
+        case "coupe":
+            return qsTr("Coupe")
+        case "plazcard":
+            return qsTr("Plazcard")
+        case "lux":
+            return qsTr("Lux")
+        case "sedentary":
+            return qsTr("Sedentary")
+        case "soft":
+            return qsTr("Soft")
+        }
+    }
+
     Label {
         id: typeOfSeats
 
@@ -14,7 +30,7 @@ ListItem {
         anchors.leftMargin: Theme.horizontalPageMargin
         font.pixelSize: Theme.fontSizeSmall
         color: Theme.secondaryColor
-        text: qsTr("Type: ") + type
+        text: qsTr("Type: ") + getCarType(type)
     }
 
     Text {
@@ -26,7 +42,7 @@ ListItem {
         anchors.leftMargin: Theme.horizontalPageMargin
         font.pixelSize: Theme.fontSizeExtraSmall
         color: Theme.secondaryColor
-        text: qsTr("Top seats: ") + topSeatsCount
+        text: qsTr("Top seats: <b>") + topSeatsCount + "</b>"
     }
     Text {
         id: topPrice
@@ -37,7 +53,7 @@ ListItem {
         anchors.rightMargin: Theme.horizontalPageMargin
         font.pixelSize: Theme.fontSizeExtraSmall
         color: Theme.secondaryColor
-        text: qsTr("Price: ") + topSeatsPrice + " " + currency
+        text: qsTr("Price: <b>") + topSeatsPrice + "</b> " + currency
     }
 
     Text {
@@ -48,7 +64,7 @@ ListItem {
         anchors.leftMargin: Theme.horizontalPageMargin
         font.pixelSize: Theme.fontSizeExtraSmall
         color: Theme.secondaryColor
-        text: (type !== "sedentary")?qsTr("Bottom seats: ") + bottomSeatsCount:qsTr("Seats: ") + seatsCount
+        text: (type !== "sedentary")?qsTr("Bottom seats: <b>") + bottomSeatsCount + "</b>":qsTr("Seats: <b>") + seatsCount + "</b>"
     }
     Text {
         id: bottomPrice
@@ -58,7 +74,7 @@ ListItem {
         anchors.rightMargin: Theme.horizontalPageMargin
         font.pixelSize: Theme.fontSizeExtraSmall
         color: Theme.secondaryColor
-        text: (type !== "sedentary")?qsTr("Price: ") + bottomSeatsPrice + " " + currency:qsTr("Price: ") + price + " " + currency
+        text: (type !== "sedentary")?qsTr("Price: <b>") + bottomSeatsPrice + "</b> " + currency:qsTr("Price: <b>") + price + "</b> " + currency
     }
     Separator {
         anchors.bottom: parent.bottom

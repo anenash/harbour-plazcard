@@ -1,5 +1,6 @@
 import QtQuick 2.4
 import Sailfish.Silica 1.0
+import Nemo.Configuration 1.0
 
 import plazcard.Info 1.0
 
@@ -15,6 +16,16 @@ Page {
         routeInfo.getRoute(routeData.routeInfo)
     }
 
+    ConfigurationValue {
+        id: useInternalBrowser
+
+        key: "/useInternalBrowser"
+
+        onValueChanged: {
+            internal.useInternalBrowser = value
+        }
+    }
+
     QtObject {
         id: internal
 
@@ -23,15 +34,12 @@ Page {
         function getDescription(arrival, stay, departure) {
             var result = ""
             if (arrival && arrival !== "") {
-//                result += "\u29D1 " + arrival
                 result += "\u23F7 " + arrival
             }
             if (stay && stay !== "") {
-//                result += " \u29D3 " + stay.replace("&nbsp;", " ");
-                result += " \u23F8 " + stay.replace("&nbsp;", " ");
+                result += " \u2B62 \u23F1 " + stay.replace("&nbsp;м", " мин") + " \u2B62"
             }
             if (departure && departure !== "") {
-//                result += " \u29D2 " + departure
                 result += " \u23F6 " + departure
             }
 
@@ -40,13 +48,10 @@ Page {
 
         function getIcon(arrival, departure) {
             if (arrival !== "" && departure !== "") {
-//                return "image://theme/icon-m-device"
                 return "../images/midStation.svg"
             } else if (arrival !== "") {
-//                return "image://theme/icon-m-device-upload"
                 return "../images/stop.svg"
             } else {
-//                return "image://theme/icon-m-device-download"
                 return "../images/start.svg"
             }
         }
@@ -149,8 +154,11 @@ Page {
 
             onClicked: {
                 var url = routeInfo.getBuyUrl(routeData.buyUrl)
-//                console.log(url)
-                pageStack.push(Qt.resolvedUrl("WebPage.qml"), {pageUrl: url})
+                if (useInternalBrowser.value){
+                    pageStack.push(Qt.resolvedUrl("WebPage.qml"), {pageUrl: url})
+                } else {
+                    console.log("application started", Qt.openUrlExternally(url))
+                }
             }
         }
     }

@@ -1,10 +1,18 @@
 import QtQuick 2.4
 import Sailfish.Silica 1.0
+import Nemo.Configuration 1.0
 
 import plazcard.Info 1.0
 
 Page {
     id: page
+
+    ConfigurationValue {
+        id: useInternalBrowser
+
+        key: "/useInternalBrowser"
+        defaultValue: false
+    }
 
     QtObject {
         id: internal
@@ -39,6 +47,10 @@ Page {
             MenuItem {
                 text: qsTr("About")
                 onClicked: pageStack.push(Qt.resolvedUrl("AboutPage.qml"))
+            }
+            MenuItem {
+                text: qsTr("Settings")
+                onClicked: pageStack.push(Qt.resolvedUrl("SettingsPage.qml"))
             }
         }
 

@@ -39,6 +39,10 @@
         <source>To:</source>
         <translation>В:</translation>
     </message>
+    <message>
+        <source>Settings</source>
+        <translation>Настройки</translation>
+    </message>
 </context>
 <context>
     <name>PriceInfoDelegate</name>
@@ -47,20 +51,40 @@
         <translation>Тип: </translation>
     </message>
     <message>
-        <source>Price: </source>
-        <translation>Цена: </translation>
+        <source>Coupe</source>
+        <translation>Купе</translation>
     </message>
     <message>
-        <source>Top seats: </source>
-        <translation>Верхняя полка: </translation>
+        <source>Plazcard</source>
+        <translation>Плацкарт</translation>
     </message>
     <message>
-        <source>Bottom seats: </source>
-        <translation>Нижняя полка: </translation>
+        <source>Lux</source>
+        <translation>Люкс</translation>
     </message>
     <message>
-        <source>Seats: </source>
-        <translation>Мест: </translation>
+        <source>Sedentary</source>
+        <translation>Сидячий</translation>
+    </message>
+    <message>
+        <source>Soft</source>
+        <translation>Мягкий</translation>
+    </message>
+    <message>
+        <source>Top seats: &lt;b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Price: &lt;b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bottom seats: &lt;b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Seats: &lt;b&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -91,6 +115,17 @@
     <message>
         <source>Enter a city name</source>
         <translation>Введите корректное название города</translation>
+    </message>
+</context>
+<context>
+    <name>SettingsPage</name>
+    <message>
+        <source>Settings</source>
+        <translation>Настройки</translation>
+    </message>
+    <message>
+        <source>Use system browser</source>
+        <translation>Использовать системный браузер</translation>
     </message>
 </context>
 <context>

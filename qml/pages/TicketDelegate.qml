@@ -1,5 +1,6 @@
-import QtQuick 2.2
+import QtQuick 2.4
 import Sailfish.Silica 1.0
+
 
 ListItem {
     property variant ticket: ({})
@@ -14,8 +15,6 @@ ListItem {
 
     QtObject {
         id: internal
-
-        property bool expanded: false
 
         function secondsToHms(d) {
             d = Number(d)
@@ -69,6 +68,7 @@ ListItem {
 
         text: new Date(ticket.trainDepartureDateTime*1000).toTimeString() + " " + new Date(ticket.trainDepartureDateTime*1000).toDateString()
         font.pixelSize: Theme.fontSizeTiny
+        font.bold: true
         color: Theme.secondaryColor
     }
     Text {
@@ -91,6 +91,7 @@ ListItem {
 
         text: new Date(ticket.trainArrivalDateTime*1000).toTimeString() + " " + new Date(ticket.trainArrivalDateTime*1000).toDateString()
         font.pixelSize: Theme.fontSizeExtraSmall
+        font.bold: true
         color: Theme.secondaryColor
     }
     Text {

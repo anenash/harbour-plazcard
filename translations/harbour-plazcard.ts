@@ -39,6 +39,10 @@
         <source>To:</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PriceInfoDelegate</name>
@@ -47,19 +51,39 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Price: </source>
+        <source>Coupe</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Top seats: </source>
+        <source>Plazcard</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Bottom seats: </source>
+        <source>Lux</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Seats: </source>
+        <source>Sedentary</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Soft</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Top seats: &lt;b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Price: &lt;b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bottom seats: &lt;b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Seats: &lt;b&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -90,6 +114,17 @@
     </message>
     <message>
         <source>Enter a city name</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SettingsPage</name>
+    <message>
+        <source>Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use system browser</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -12,9 +12,9 @@ Page {
         Column {
             id: content
 
-            anchors.top: header.bottom
             width: parent.width
             spacing: Theme.paddingMedium
+
             Label {
                 width: parent.width
                 anchors.left: parent.left
@@ -22,7 +22,7 @@ Page {
                 anchors.margins: Theme.horizontalPageMargin
                 horizontalAlignment: Text.AlignLeft
                 wrapMode: Text.WordWrap
-                text: '<p>Приложение для поиска железнодорожных билетов. Информация о маршрутах и наличии билетов предоставляется сервисом <a href="https://www.tutu.ru/">tutu.ru</a>:</p>'
+                text: '<p>Приложение для поиска железнодорожных билетов. Информация о маршрутах и наличии билетов предоставляется сервисом <a href="https://www.tutu.ru/">tutu.ru</a></p>'
                 onLinkActivated: {
                     Qt.openUrlExternally(link)
                 }

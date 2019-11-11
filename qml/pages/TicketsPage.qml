@@ -14,11 +14,10 @@ Page {
         property bool loadData: true
         property bool noTicketsFound: false
 
-        function getDirection(value) {
-            console.log("value", value)
-            if (value === true) {
+        function getDirection(direction) {
+            if (direction === "true") {
                 return qsTr("Forth")
-            } else {
+            } else if (direction === "false"){
                 return qsTr("Back")
             }
         }
