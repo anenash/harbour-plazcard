@@ -18,16 +18,21 @@ Page {
     QtObject {
         id: internal
 
+        property bool routeSearch: false
+
         function getDescription(arrival, stay, departure) {
             var result = ""
             if (arrival && arrival !== "") {
-                result += "\u29D1 " + arrival
+//                result += "\u29D1 " + arrival
+                result += "\u23F7 " + arrival
             }
             if (stay && stay !== "") {
-                result += " \u29D3 " + stay.replace("&nbsp;", " ");
+//                result += " \u29D3 " + stay.replace("&nbsp;", " ");
+                result += " \u23F8 " + stay.replace("&nbsp;", " ");
             }
             if (departure && departure !== "") {
-                result += " \u29D2 " + departure
+//                result += " \u29D2 " + departure
+                result += " \u23F6 " + departure
             }
 
             return result
@@ -35,11 +40,14 @@ Page {
 
         function getIcon(arrival, departure) {
             if (arrival !== "" && departure !== "") {
-                return "image://theme/icon-m-device"
+//                return "image://theme/icon-m-device"
+                return "../images/midStation.svg"
             } else if (arrival !== "") {
-                return "image://theme/icon-m-device-upload"
+//                return "image://theme/icon-m-device-upload"
+                return "../images/stop.svg"
             } else {
-                return "image://theme/icon-m-device-download"
+//                return "image://theme/icon-m-device-download"
+                return "../images/start.svg"
             }
         }
     }
@@ -75,34 +83,50 @@ Page {
 
             anchors.top: header.bottom
             anchors.left: parent.left
-            anchors.leftMargin: Theme.horizontalPageMargin
             anchors.right: parent.right
-            anchors.rightMargin: Theme.horizontalPageMargin
             height: parent.height * 0.33
             clip: true
 
             model: routeModel
 
             delegate: PageHeader {
+                id: route
+
                 title: name
                 description: internal.getDescription(arrivalTime, stayTime, departureTime)
                 extraContent.children: [
                     Image {
                         anchors.verticalCenter: parent.verticalCenter
+                        height: route.height
+                        fillMode: Image.PreserveAspectFit
                         source: internal.getIcon(arrivalTime, departureTime)
                     }
                 ]
             }
+
+            VerticalScrollDecorator {flickable: routeInfoView}
+
+            BusyIndicator {
+                id: routeBusyIndicator
+
+                anchors.centerIn: parent
+                running: routeModel.count == 0
+                size: BusyIndicatorSize.Large
+            }
+        }
+
+        SectionHeader {
+            id: ticketsSection
+
+            anchors.top: routeInfoView.bottom
+            anchors.topMargin: Theme.paddingMedium
+            text: qsTr("Tickets")
         }
 
         SilicaListView {
             id: tickets
 
-            anchors.top: routeInfoView.bottom
-//            anchors.left: parent.left
-//            anchors.leftMargin: Theme.horizontalPageMargin
-//            anchors.right: parent.right
-//            anchors.rightMargin: Theme.horizontalPageMargin
+            anchors.top: ticketsSection.bottom
             anchors.bottom: buyButton.top
             spacing: Theme.paddingMedium
             clip: true
@@ -113,24 +137,6 @@ Page {
             delegate: PriceInfoDelegate {
                 pricesInfo: model
             }
-
-//            delegate: ListItem {
-//                height: Theme.itemSizeMedium
-//                Text {
-//                    id: seats
-
-//                    font.pixelSize: Theme.fontSizeExtraSmall
-//                    color: Theme.secondaryColor
-//                    text: qsTr("Seats: ") + seatsCount
-//                }
-//                Label {
-//                    anchors.bottom: parent.bottom
-
-//                    font.pixelSize: Theme.fontSizeExtraSmall
-//                    color: Theme.secondaryColor
-//                    text: qsTr("Price: ") + price
-//                }
-//            }
         }
 
         Button {
@@ -143,8 +149,8 @@ Page {
 
             onClicked: {
                 var url = routeInfo.getBuyUrl(routeData.buyUrl)
-                console.log(url)
-//                pageStack.push(Qt.resolvedUrl("WebPage.qml"), {pageUrl: url})
+//                console.log(url)
+                pageStack.push(Qt.resolvedUrl("WebPage.qml"), {pageUrl: url})
             }
         }
     }

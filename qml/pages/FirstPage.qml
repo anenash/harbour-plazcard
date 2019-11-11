@@ -99,7 +99,7 @@ Page {
                     dialog.accepted.connect(function() {
                         var currDate = new Date()
                         if (currDate <= dialog.date) {
-                            internal.departureDateValue = dialog.dateText
+                            internal.departureDateValue = dialog.day + "." + dialog.month + "." + dialog.year
                             internal.departureSelectedDate = dialog.date
                             internal.departureDateValueIsSet = true
                         }
@@ -133,7 +133,7 @@ Page {
                     dialog.accepted.connect(function() {
                         var currDate = new Date()
                         if (currDate <= dialog.date && internal.departureSelectedDate <= dialog.date) {
-                            internal.returnDateValue = dialog.dateText
+                            internal.returnDateValue = dialog.day + "." + dialog.month + "." + dialog.year
                             internal.returnSelectedDate = dialog.date
                             internal.returnDateValueIsSet = true
                         }

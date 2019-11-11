@@ -81,7 +81,6 @@ QString Information::getBuyUrl(const QString &url)
 void Information::getRoute(const QString &link)
 {
     QUrl url = "https://www.tutu.ru/" + link;
-//    qDebug() << "url" << url;
     m_manager.performRequest(RequestType::Get, url);
 }
 
@@ -92,7 +91,6 @@ void Information::parseStationsList(const QJsonDocument result)
         m_stations.clear();
         QJsonValue arr { result.object().value("data") };
 
-//            qDebug().noquote() << "Arr" << arr;
         for(auto object : arr.toArray() )
         {
             QJsonObject obj = object.toObject();
@@ -159,7 +157,9 @@ void Information::parseTicketsList(const QByteArray &result)
     for (auto searchItem : searchResultList)
     {
         QJsonArray tickets = searchItem.toObject().value("trains").toArray();
+        qDebug() << "m_roundTrip before" << m_roundTrip;
         m_roundTrip = !m_roundTrip;
+        qDebug() << "m_roundTrip after" << m_roundTrip;
         for(auto param : tickets)
         {
            if(param.toObject().value("type").toString() == "withSeats")
@@ -171,6 +171,7 @@ void Information::parseTicketsList(const QByteArray &result)
                QJsonObject trip = object.value("params").toObject().value("trip").toObject();
                QJsonObject ticketsInfo = object.value("params").toObject().value("withSeats").toObject();
 
+               qDebug() << "m_roundTrip set" << m_roundTrip;
                result.insert("direction", m_roundTrip);
                result.insert("buyUrl", ticketsInfo.value("buyAbsUrl").toString());
                result.insert("trainNumber", tripInfo.value("number").toString());

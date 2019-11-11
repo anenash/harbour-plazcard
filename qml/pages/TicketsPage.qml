@@ -15,10 +15,11 @@ Page {
         property bool noTicketsFound: false
 
         function getDirection(value) {
-            if (value) {
+            console.log("value", value)
+            if (value === true) {
                 return qsTr("Forth")
             } else {
-                qsTr("Back")
+                return qsTr("Back")
             }
         }
     }

@@ -2,17 +2,6 @@
 <!DOCTYPE TS>
 <TS version="2.1">
 <context>
-    <name>AboutPage</name>
-    <message>
-        <source>Nested Page</source>
-        <translation type="unfinished">Unterseite</translation>
-    </message>
-    <message>
-        <source>Item</source>
-        <translation type="unfinished">Element</translation>
-    </message>
-</context>
-<context>
     <name>FirstPage</name>
     <message>
         <source>Departure date:</source>
@@ -84,6 +73,10 @@
         <source>Buy</source>
         <translation>Купить</translation>
     </message>
+    <message>
+        <source>Tickets</source>
+        <translation>Билеты</translation>
+    </message>
 </context>
 <context>
     <name>SearchStationDialog</name>
@@ -146,7 +139,7 @@
     <name>harbour-plazcard</name>
     <message>
         <source>Plazcard</source>
-        <translation type="unfinished"></translation>
+        <translation>Плацкарт</translation>
     </message>
 </context>
 </TS>

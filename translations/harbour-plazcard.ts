@@ -2,17 +2,6 @@
 <!DOCTYPE TS>
 <TS version="2.1">
 <context>
-    <name>AboutPage</name>
-    <message>
-        <source>Nested Page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Item</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>FirstPage</name>
     <message>
         <source>Departure date:</source>
@@ -82,6 +71,10 @@
     </message>
     <message>
         <source>Buy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tickets</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
