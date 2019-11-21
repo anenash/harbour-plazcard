@@ -10,7 +10,7 @@ Name:       harbour-plazcard
 
 Summary:    My Sailfish OS Application
 Version:    0.1
-Release:    8
+Release:    9
 Group:      Qt/Qt
 License:    LICENSE
 URL:        http://example.org/

@@ -117,11 +117,15 @@ Dialog {
                 Label {
                     anchors.left: icon.right
                     anchors.leftMargin: Theme.horizontalPageMargin
+                    anchors.right: parent.right
+                    anchors.rightMargin: Theme.horizontalPageMargin
                     anchors.verticalCenter: parent.verticalCenter
                     width: parent.width
                     text: name
                     truncationMode: TruncationMode.Fade
                     font.pixelSize: Theme.fontSizeSmall
+                    wrapMode: "WordWrap"
+                    maximumLineCount: 2
                 }
 
                 onClicked: {

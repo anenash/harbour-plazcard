@@ -132,7 +132,7 @@ void Information::parseTicketsList(const QByteArray &result)
     }
     QJsonObject references = root.value("references").toObject();
 
-    auto station = [=](const QJsonObject& list, const QString key) -> QString {
+    auto station = [=](const QJsonObject& list, const QString& key, QString& city, QString& station) -> QString {
         for (auto item : list.value("stations").toArray())
         {
             if (item.toObject().value("code").toString() == key)
@@ -148,6 +148,8 @@ void Information::parseTicketsList(const QByteArray &result)
                         break;
                     }
                 }
+                city = cityName;
+                station = stationName;
                 return cityName + ", " + stationName;
             }
         }
@@ -156,10 +158,9 @@ void Information::parseTicketsList(const QByteArray &result)
 //    qDebug().noquote() << "\n\n\ntickets" << tickets;
     for (auto searchItem : searchResultList)
     {
+        qDebug() << "Item" << searchItem;
         QJsonArray tickets = searchItem.toObject().value("trains").toArray();
-        qDebug() << "m_roundTrip before" << m_roundTrip;
         m_roundTrip = !m_roundTrip;
-        qDebug() << "m_roundTrip after" << m_roundTrip;
         for(auto param : tickets)
         {
            if(param.toObject().value("type").toString() == "withSeats")
@@ -171,21 +172,29 @@ void Information::parseTicketsList(const QByteArray &result)
                QJsonObject trip = object.value("params").toObject().value("trip").toObject();
                QJsonObject ticketsInfo = object.value("params").toObject().value("withSeats").toObject();
 
-               qDebug() << "m_roundTrip set" << m_roundTrip;
                result.insert("direction", m_roundTrip);
                result.insert("buyUrl", ticketsInfo.value("buyAbsUrl").toString());
                result.insert("trainNumber", tripInfo.value("number").toString());
                result.insert("trainName", tripInfo.value("name").toString());
                result.insert("isFirm", tripInfo.value("isFirm").toBool());
-               result.insert("trainArrivalDateTime", tripInfo.value("trainArrivalDateTime").toInt());
-               result.insert("trainDepartureDateTime", tripInfo.value("trainDepartureDateTime").toInt());
+               result.insert("trainArrivalDateTime", trip.value("arrivalTimestamp").toInt());
+               result.insert("trainDepartureDateTime", trip.value("departureTimestamp").toInt());
                result.insert("tripDuration", trip.value("travelTimeSeconds").toInt());
                result.insert("routeInfo", tripInfo.value("aboutTrainAjaxUrl").toString());
 
-               QString arrStation = station(references, trip.value("arrivalStation").toString());
-               QString depStation = station(references, trip.value("departureStation").toString());
-              result.insert("arrivalStation", arrStation);
-              result.insert("departureStation", depStation);
+               QString arrStationName;
+               QString arrCityName;
+               QString arrStation = station(references, trip.value("arrivalStation").toString(), arrCityName, arrStationName);
+               result.insert("arrStationName", arrStationName);
+               result.insert("arrCityName", arrCityName);
+               QString depStationName;
+               QString depCityName;
+               QString depStation = station(references, trip.value("departureStation").toString(), depCityName, depStationName);
+               result.insert("depStationName", depStationName);
+               result.insert("depCityName", depCityName);
+
+               result.insert("arrivalStation", arrStation);
+               result.insert("departureStation", depStation);
 
                QJsonArray prices = ticketsInfo.value("categories").toArray();
                QJsonArray ticketsPrice;

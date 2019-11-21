@@ -72,19 +72,19 @@
     </message>
     <message>
         <source>Top seats: &lt;b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Верхнее место: &lt;b&gt;</translation>
     </message>
     <message>
         <source>Price: &lt;b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Цена: &lt;b&gt;</translation>
     </message>
     <message>
         <source>Bottom seats: &lt;b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Нижнее место: &lt;b&gt;</translation>
     </message>
     <message>
         <source>Seats: &lt;b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>Мест: &lt;b&gt;</translation>
     </message>
 </context>
 <context>

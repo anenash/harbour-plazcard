@@ -6,7 +6,7 @@ ListItem {
     property variant ticket: ({})
 
     anchors.left: parent.left
-    contentHeight: Theme.itemSizeHuge + Theme.itemSizeSmall
+    contentHeight: Theme.itemSizeHuge + Theme.itemSizeMedium
     width: parent.width
 
     ListModel {
@@ -47,57 +47,124 @@ ListItem {
         font.bold: true
         text: ticket.trainNumber + " " + ticket.trainName
     }
-    Text {
-        id: depStation
+    Row {
+        id: ticketStations
 
         anchors.top: icon.bottom
         anchors.left: parent.left
         anchors.leftMargin: Theme.horizontalPageMargin
-        anchors.right: ticketPrice.left
-        text: ticket.departureStation
-        font.pixelSize: Theme.fontSizeExtraSmall
-        color: Theme.primaryColor
+        anchors.right: parent.right
+        Item {
+            id: deph
+
+            height: Theme.itemSizeMedium
+            width: parent.width * 0.5
+
+            Text {
+                id: depStation0
+
+                text: ticket.depCityName
+                font.pixelSize: Theme.fontSizeExtraSmall
+                color: Theme.primaryColor
+            }
+            Text {
+                id: depStation1
+
+                anchors.top: depStation0.bottom
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.rightMargin: Theme.horizontalPageMargin
+                text: ticket.depStationName
+                font.pixelSize: Theme.fontSizeTiny
+                font.bold: true
+                color: Theme.primaryColor
+            }
+            Text {
+                id: depDate
+
+                anchors.top: depStation1.bottom
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.rightMargin: Theme.horizontalPageMargin
+
+                text: new Date(ticket.trainDepartureDateTime*1000).toDateString()
+                font.pixelSize: Theme.fontSizeTiny
+                font.bold: true
+                color: Theme.secondaryColor
+            }
+            Text {
+                id: depTime
+
+                anchors.top: depDate.bottom
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.rightMargin: Theme.horizontalPageMargin
+
+                text: new Date(ticket.trainDepartureDateTime*1000).toTimeString()
+                font.pixelSize: Theme.fontSizeExtraSmall
+                font.bold: true
+                color: Theme.primaryColor
+            }
+        }
+        Item {
+            id: arr
+
+            height: Theme.itemSizeMedium
+            width: parent.width * 0.5
+
+            Text {
+                id: arrStation0
+
+                text: ticket.arrCityName
+                font.pixelSize: Theme.fontSizeExtraSmall
+                color: Theme.primaryColor
+            }
+            Text {
+                id: arrStation1
+
+                anchors.top: arrStation0.bottom
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.rightMargin: Theme.horizontalPageMargin
+                text: ticket.arrStationName
+                font.pixelSize: Theme.fontSizeTiny
+                font.bold: true
+                color: Theme.primaryColor
+            }
+            Text {
+                id: arrDate
+
+                anchors.top: arrStation1.bottom
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.rightMargin: Theme.horizontalPageMargin
+
+                text: new Date(ticket.trainArrivalDateTime*1000).toDateString()
+                font.pixelSize: Theme.fontSizeTiny
+                font.bold: true
+                color: Theme.secondaryColor
+            }
+            Text {
+                id: arrTime
+
+                anchors.top: arrDate.bottom
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.rightMargin: Theme.horizontalPageMargin
+
+                text: new Date(ticket.trainArrivalDateTime*1000).toTimeString()
+                font.pixelSize: Theme.fontSizeExtraSmall
+                font.bold: true
+                color: Theme.primaryColor
+            }
+        }
     }
-    Text {
-        id: depTime
 
-        anchors.top: depStation.bottom
-        anchors.left: parent.left
-        anchors.leftMargin: Theme.horizontalPageMargin
-        anchors.right: ticketPrice.left
-
-        text: new Date(ticket.trainDepartureDateTime*1000).toTimeString() + " " + new Date(ticket.trainDepartureDateTime*1000).toDateString()
-        font.pixelSize: Theme.fontSizeTiny
-        font.bold: true
-        color: Theme.secondaryColor
-    }
-    Text {
-        id: arrStation
-
-        anchors.top: depTime.bottom
-        anchors.left: parent.left
-        anchors.leftMargin: Theme.horizontalPageMargin
-        anchors.right: ticketPrice.left
-        text: ticket.arrivalStation
-        color: Theme.primaryColor
-    }
-    Text {
-        id: arrTime
-
-        anchors.top: arrStation.bottom
-        anchors.left: parent.left
-        anchors.leftMargin: Theme.horizontalPageMargin
-        anchors.right: ticketPrice.left
-
-        text: new Date(ticket.trainArrivalDateTime*1000).toTimeString() + " " + new Date(ticket.trainArrivalDateTime*1000).toDateString()
-        font.pixelSize: Theme.fontSizeExtraSmall
-        font.bold: true
-        color: Theme.secondaryColor
-    }
     Text {
         id: durTime
 
-        anchors.top: arrTime.bottom
+        anchors.top: ticketStations.bottom
+        anchors.topMargin: Theme.paddingMedium
         anchors.left: parent.left
         anchors.leftMargin: Theme.horizontalPageMargin
         anchors.right: ticketPrice.left
@@ -121,11 +188,15 @@ ListItem {
     Label {
         id: ticketPrice
 
-        anchors.top: trainNum.bottom
+        anchors.top: ticketStations.bottom
+        anchors.topMargin: Theme.paddingMedium
+        anchors.bottom: parent.bottom
         anchors.right: parent.right
-        width: parent.width * 0.2
+        anchors.rightMargin: Theme.horizontalPageMargin
+        width: parent.width * 0.35
+        font.pixelSize: Theme.fontSizeLarge
         font.bold: true
-        text: "от\n" + ticket.minPrice + "\n" + ticket.currency
+        text: "от " + ticket.minPrice + " " + ticket.currency
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
     }
