@@ -59,6 +59,7 @@ class Information : public QObject
 public:
     explicit Information(QObject *parent = nullptr);
 
+    Q_INVOKABLE void setSearchType(const bool value);
     Q_INVOKABLE void getStations(const QString &name);
     Q_INVOKABLE void clearStationsList() { m_stations.clear(); }
 
@@ -79,9 +80,9 @@ signals:
     void routeModelChanged(QList<DataModel *> result);
 
 private slots:
-    void parseStationsList(const QJsonDocument result);
+    void parseStationsList(const QJsonValue& arr);
     void parseTicketsList(const QByteArray &result);
-
+    void parseSuburbanTickets(const QByteArray &result);
 
 private:
     NetworkManger m_manager;
@@ -90,6 +91,7 @@ private:
     QList<DataModel *> m_routes;
 
     bool m_roundTrip {false};
+    bool m_suburbanSearch {false};
 };
 
 // INFORMATION_H

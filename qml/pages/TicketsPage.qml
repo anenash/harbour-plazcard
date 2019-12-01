@@ -1,5 +1,6 @@
 import QtQuick 2.4
 import Sailfish.Silica 1.0
+import Nemo.Configuration 1.0
 
 import plazcard.Info 1.0
 
@@ -7,6 +8,22 @@ Page {
     id: page
 
     property string url
+
+    ConfigurationValue {
+        id: suburbanSearch
+
+        key: "/suburbanSearch"
+    }
+
+    Component {
+        id: ticketDelegate
+        TicketDelegate { ticket: value }
+    }
+
+    Component {
+        id: suburbanTrainDelegate
+        SuburbanTrainDelegate { info: value }
+    }
 
     QtObject {
         id: internal
@@ -39,11 +56,13 @@ Page {
             internal.noTicketsFound = true
         }
     }
+
     ListModel {
         id: ticketsModel
     }
 
     Component.onCompleted: {
+        ticketsInfo.setSearchType(suburbanSearch.value)
         ticketsInfo.getTickets(url)
     }
     SilicaFlickable {
@@ -53,7 +72,7 @@ Page {
             id: header
 
             anchors.top: parent.top
-            title: qsTr("Railway trip")
+            title: suburbanSearch.value ? qsTr("Suburban train") : qsTr("Railway trip")
         }
 
         SilicaListView {
@@ -74,8 +93,11 @@ Page {
                 }
             }
 
-            delegate: TicketDelegate {
-                ticket: ticketsModel.get(index)
+            delegate: Component {
+                Loader {
+                    property variant value: ticketsModel.get(index)
+                    sourceComponent: suburbanSearch.value ? suburbanTrainDelegate : ticketDelegate
+                }
             }
 
             VerticalScrollDecorator {flickable: ticketsListView}

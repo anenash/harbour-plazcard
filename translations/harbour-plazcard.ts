@@ -43,6 +43,18 @@
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Switch to suburban train</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Switch to railway train</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Suburban train</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PriceInfoDelegate</name>
@@ -150,11 +162,15 @@
 <context>
     <name>TicketsPage</name>
     <message>
-        <source>No tickets found</source>
+        <source>Forth</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Please, change the search request</source>
+        <source>Back</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Suburban train</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -162,11 +178,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Forth</source>
+        <source>No tickets found</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Back</source>
+        <source>Please, change the search request</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

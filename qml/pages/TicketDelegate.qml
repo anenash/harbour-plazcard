@@ -1,7 +1,6 @@
 import QtQuick 2.4
 import Sailfish.Silica 1.0
 
-
 ListItem {
     property variant ticket: ({})
 
@@ -66,6 +65,7 @@ ListItem {
                 text: ticket.depCityName
                 font.pixelSize: Theme.fontSizeExtraSmall
                 color: Theme.primaryColor
+                wrapMode: Text.WordWrap
             }
             Text {
                 id: depStation1
@@ -75,6 +75,7 @@ ListItem {
                 anchors.right: parent.right
                 anchors.rightMargin: Theme.horizontalPageMargin
                 text: ticket.depStationName
+                wrapMode: Text.WordWrap
                 font.pixelSize: Theme.fontSizeTiny
                 font.bold: true
                 color: Theme.primaryColor
@@ -118,6 +119,7 @@ ListItem {
                 text: ticket.arrCityName
                 font.pixelSize: Theme.fontSizeExtraSmall
                 color: Theme.primaryColor
+                wrapMode: Text.WordWrap
             }
             Text {
                 id: arrStation1
@@ -127,6 +129,7 @@ ListItem {
                 anchors.right: parent.right
                 anchors.rightMargin: Theme.horizontalPageMargin
                 text: ticket.arrStationName
+                wrapMode: Text.WordWrap
                 font.pixelSize: Theme.fontSizeTiny
                 font.bold: true
                 color: Theme.primaryColor

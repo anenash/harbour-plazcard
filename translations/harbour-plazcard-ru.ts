@@ -43,6 +43,18 @@
         <source>Settings</source>
         <translation>Настройки</translation>
     </message>
+    <message>
+        <source>Switch to suburban train</source>
+        <translation>Переключить на поезда</translation>
+    </message>
+    <message>
+        <source>Switch to railway train</source>
+        <translation>Переключить на электрички</translation>
+    </message>
+    <message>
+        <source>Suburban train</source>
+        <translation>Электрички</translation>
+    </message>
 </context>
 <context>
     <name>PriceInfoDelegate</name>
@@ -150,24 +162,28 @@
 <context>
     <name>TicketsPage</name>
     <message>
-        <source>No tickets found</source>
-        <translation>Билетов не найдено</translation>
-    </message>
-    <message>
-        <source>Please, change the search request</source>
-        <translation>Пожалуйста, измените запрос</translation>
-    </message>
-    <message>
-        <source>Railway trip</source>
-        <translation>Железнодорожные билеты</translation>
-    </message>
-    <message>
         <source>Forth</source>
         <translation>Туда</translation>
     </message>
     <message>
         <source>Back</source>
         <translation>Обратно</translation>
+    </message>
+    <message>
+        <source>Suburban train</source>
+        <translation>Электрички</translation>
+    </message>
+    <message>
+        <source>Railway trip</source>
+        <translation>Поезда</translation>
+    </message>
+    <message>
+        <source>No tickets found</source>
+        <translation>Билетов не найдено</translation>
+    </message>
+    <message>
+        <source>Please, change the search request</source>
+        <translation>Пожалуйста, измените запрос</translation>
     </message>
 </context>
 <context>

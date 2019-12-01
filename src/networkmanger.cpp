@@ -17,6 +17,7 @@ NetworkManger::~NetworkManger()
 
 void NetworkManger::performRequest(RequestType requestType, const QUrl &url, const QByteArray &params)
 {
+//    qDebug() << url;
     switch (requestType)
     {
     case RequestType::Get:
@@ -29,7 +30,7 @@ void NetworkManger::performRequest(RequestType requestType, const QUrl &url, con
     }
     case RequestType::Post:
     {
-        qDebug().noquote() << "Post params" << params;
+//        qDebug().noquote() << "Post params" << params;
         QNetworkRequest request(url);
         request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
         m_networkManager->post(request, params);
@@ -66,6 +67,8 @@ void NetworkManger::requestDone(QNetworkReply *reply)
 //    qDebug().noquote() << "error code" << reply->error() << reply->errorString() \
 //             << "Message" << body;
 
+//    qDebug().noquote() << "Content-Location" << reply->rawHeader("Content-Location") << "Location" << reply->rawHeader("Location") << "\nMessage" << body;
+    QString contentLocation = reply->rawHeader("Content-Location");
     requestResult.insert("error", reply->error());
 
     if (reply->error() == QNetworkReply::NoError)
@@ -90,6 +93,12 @@ void NetworkManger::requestDone(QNetworkReply *reply)
     {
         QJsonDocument result(requestResult);
         emit sendResponse(result);
+    }
+//    qDebug() << "Body length" << body.length() << "content length" << contentLocation.length();
+    if(body.length() == 0 && contentLocation.length() > 0)
+    {
+        QUrl url(contentLocation);
+        emit redirectUrl(url);
     }
     reply->deleteLater();
 }

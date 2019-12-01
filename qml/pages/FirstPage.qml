@@ -14,6 +14,13 @@ Page {
         defaultValue: false
     }
 
+    ConfigurationValue {
+        id: suburbanSearch
+
+        key: "/suburbanSearch"
+        defaultValue: false
+    }
+
     QtObject {
         id: internal
 
@@ -35,7 +42,11 @@ Page {
     allowedOrientations: Orientation.Portrait
 
     Info {
-        id: serachTickets
+        id: searchTickets
+    }
+
+    Component.onCompleted: {
+        searchTickets.setSearchType(suburbanSearch.value)
     }
 
     // To enable PullDownMenu, place our content in a SilicaFlickable
@@ -52,6 +63,13 @@ Page {
                 text: qsTr("Settings")
                 onClicked: pageStack.push(Qt.resolvedUrl("SettingsPage.qml"))
             }
+            MenuItem {
+                text: suburbanSearch.value? qsTr("Switch to suburban train") : qsTr("Switch to railway train")
+                onClicked: {
+                    suburbanSearch.value = !suburbanSearch.value
+                    searchTickets.setSearchType(suburbanSearch.value)
+                }
+            }
         }
 
         // Tell SilicaFlickable the height of its content.
@@ -65,7 +83,7 @@ Page {
             width: page.width
             spacing: Theme.paddingLarge
             PageHeader {
-                title: qsTr("Railway tickets")
+                title: suburbanSearch.value ? qsTr("Suburban train") : qsTr("Railway tickets")
             }
 
             ValueButton {
@@ -128,6 +146,7 @@ Page {
             TextSwitch {
                 id: roundTrip
 
+                visible: !suburbanSearch.value
                 checked: false
                 text: qsTr("Round trip")
             }
@@ -167,9 +186,18 @@ Page {
                 onClicked: {
                     var firstDate = internal.departureDateValue.replace(/ /g, '%20')
                     var secondDate = internal.returnDateValue.replace(/ /g, '%20')
-                    var url = "https://www.tutu.ru/poezda/rasp_d.php?nnst1=" + internal.origin +"&nnst2=" + internal.destination + "&date=" + firstDate
-                    if (roundTrip.checked) {
-                        url += "&date_second=" + secondDate
+                    var url
+                    if (suburbanSearch.value) {
+                        url = "https://www.tutu.ru/prigorod/search.php?st1=" + internal.originText
+                                + "&st1_num=" + internal.origin
+                                + "&st2=" + internal.destinationText
+                                + "&st2_num=" + internal.destination
+                                + "&date=" + firstDate
+                    } else {
+                        url = "https://www.tutu.ru/poezda/rasp_d.php?nnst1=" + internal.origin +"&nnst2=" + internal.destination + "&date=" + firstDate
+                        if (roundTrip.checked) {
+                            url += "&date_second=" + secondDate
+                        }
                     }
 
                     main.searchString = internal.originText + " - " + internal.destinationText

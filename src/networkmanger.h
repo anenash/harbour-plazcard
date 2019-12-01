@@ -28,6 +28,7 @@ private:
 
 signals:
     void sendResponse(const QJsonDocument result);
+    void redirectUrl(QUrl url);
 
 private slots:
     void requestDone(QNetworkReply* reply);

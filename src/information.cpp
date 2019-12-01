@@ -10,26 +10,7 @@ Information::Information(QObject *parent) : QObject(parent)
         {
             m_stations.clear();
             QJsonValue arr { result.object().value("data") };
-
-//            qDebug().noquote() << "Arr" << arr;
-            for (auto object : arr.toArray() )
-            {
-                QJsonObject obj = object.toObject();
-                if (obj.contains("id") && obj.contains("value"))
-                {
-                    m_stations.append(new StationInfo(obj));
-                }
-            }
-            if (m_stations.count() > 0)
-            {
-                emit stationsModelChanged(m_stations);
-            }
-            else
-            {
-                m_stations.clear();
-                emit stationsModelChanged(m_stations);
-                emit noStationsFound();
-            }
+            parseStationsList(arr);
         }
         else if (result.object().value("data").isObject())
         {
@@ -45,30 +26,56 @@ Information::Information(QObject *parent) : QObject(parent)
                 emit routeModelChanged(m_routes);
             }
         }
-    });
-
-    connect(&m_manager, &NetworkManger::sendResponse, [=](const QJsonDocument &result){
-        if (result.object().value("data").isString())
+        else if (result.object().value("data").isString())
         {
             QString str = result.object().value("data").toString();
             QByteArray arr = str.toUtf8();
-            parseTicketsList(arr);
+            if(m_suburbanSearch)
+            {
+                parseSuburbanTickets(arr);
+            }
+            else
+            {
+                parseTicketsList(arr);
+            }
         }
     });
+
+    connect(&m_manager, &NetworkManger::redirectUrl, [=](const QUrl &url)
+    {
+        qDebug() << "redirectUrl" << m_suburbanSearch;
+        if(m_suburbanSearch)
+        {
+            qDebug() << "redirectUrl" << url;
+            m_manager.performRequest(RequestType::Get, url);
+        }
+    });
+}
+
+void Information::setSearchType(const bool value)
+{
+    m_suburbanSearch = value;
 }
 
 void Information::getStations(const QString &name)
 {
     //https://www.tutu.ru/suggest/railway_simple/?name=
-    QUrl url = "https://www.tutu.ru/suggest/railway_simple/?name=" + name;
-
+    QUrl url;
+    if(m_suburbanSearch)
+    {
+        url = "https://www.tutu.ru/station/suggest.php?name=" + QUrl::toPercentEncoding(name);
+    }
+    else
+    {
+        url = "https://www.tutu.ru/suggest/railway_simple/?name=" + name;
+    }
     m_manager.performRequest(RequestType::Get, url);
 }
 
 void Information::getTickets(const QString &link)
 {
     QUrl url = link;
-
+    qDebug() << "URL" << url;
     m_manager.performRequest(RequestType::Get, url);
 }
 
@@ -84,25 +91,31 @@ void Information::getRoute(const QString &link)
     m_manager.performRequest(RequestType::Get, url);
 }
 
-void Information::parseStationsList(const QJsonDocument result)
+void Information::parseStationsList(const QJsonValue &arr)
 {
-    if (result.object().value("data").isArray())
+
+//                qDebug().noquote() << "Arr" << arr;
+    for (auto object : arr.toArray() )
+    {
+        QJsonObject obj = object.toObject();
+        if (!m_suburbanSearch && obj.contains("id") && obj.contains("value"))
+        {
+            m_stations.append(new StationInfo(obj));
+        }
+        else if (m_suburbanSearch && obj.contains("value") && obj.contains("label"))
+        {
+            m_stations.append(new StationInfo(obj));
+        }
+    }
+    if (m_stations.count() > 0)
+    {
+        emit stationsModelChanged(m_stations);
+    }
+    else
     {
         m_stations.clear();
-        QJsonValue arr { result.object().value("data") };
-
-        for(auto object : arr.toArray() )
-        {
-            QJsonObject obj = object.toObject();
-            if (obj.contains("id") && obj.contains("value"))
-            {
-                m_stations.append(new StationInfo(obj));
-            }
-        }
-        if(m_stations.count() > 0)
-        {
-            emit stationsModelChanged(m_stations);
-        }
+        emit stationsModelChanged(m_stations);
+        emit noStationsFound();
     }
 }
 
@@ -117,7 +130,7 @@ void Information::parseTicketsList(const QByteArray &result)
     //window.params = {
     //}}}}}};
 
-//    qDebug().noquote() << arr;
+//    qDebug().noquote() << "Regexp\n" << arr;
 
     QJsonDocument allData = QJsonDocument::fromJson(arr);
 
@@ -158,7 +171,6 @@ void Information::parseTicketsList(const QByteArray &result)
 //    qDebug().noquote() << "\n\n\ntickets" << tickets;
     for (auto searchItem : searchResultList)
     {
-        qDebug() << "Item" << searchItem;
         QJsonArray tickets = searchItem.toObject().value("trains").toArray();
         m_roundTrip = !m_roundTrip;
         for(auto param : tickets)
@@ -243,12 +255,104 @@ void Information::parseTicketsList(const QByteArray &result)
     emit ticketsModelChanged(m_tickets);
 }
 
+void Information::parseSuburbanTickets(const QByteArray &result)
+{
+    QString s("window.params = ");
+    QString s1("};");
+    QString modelParams("window.modelParams = ");
+    QString modelParams1("}}}]");
+    QString ref("window.references = ");
+    QString ref1("}]};");
+//    QString ref1("window.");
+//    int first = result.indexOf(s) + s.length();
+//    int last = result.indexOf(s1, first) + s1.length() - 1;
+    int first1 = result.indexOf(modelParams) + modelParams.length();
+    int last1 = result.indexOf(modelParams1, first1) + modelParams1.length();
+    int first2 = result.indexOf(ref) + ref.length();
+    int last2 = result.indexOf(ref1, first2) + ref1.length() - 1;
+//    QByteArray arr = result.mid(first, (last - first));
+    QByteArray arr1 = result.mid(first1, (last1 - first1));
+    QByteArray arr2 = result.mid(first2, (last2 - first2));
+
+    qDebug().noquote() << "parseSuburbanTickets\n" << arr1 << "\n   references    \n" << arr2;
+//    QJsonDocument allData = QJsonDocument::fromJson(arr);
+    QJsonDocument modelParamsJson = QJsonDocument::fromJson(arr1);
+    QJsonDocument references = QJsonDocument::fromJson(arr2);
+    if (modelParamsJson.isEmpty() || references.isEmpty())
+    {
+        qDebug() << "modelParamsJson.isEmpty()" << modelParamsJson.isEmpty() << "references.isEmpty()" << references.isEmpty();
+        emit noTicketsFound();
+        return;
+    }
+//    qDebug().noquote() << "Params\n\n" << modelParamsJson << "\n\n" << references;
+
+    auto getStationName = [&references](int key){
+        QJsonArray stations = references.object().value("stations").toArray();
+        for(auto station: stations)
+        {
+            if(station.toObject().value("code").toInt() == key)
+            {
+                return station.toObject().value("name").toString();
+            }
+        }
+    };
+
+    auto getWeekday = [&references](int key){
+        QJsonArray weekSchedule = references.object().value("weekSchedule").toArray();
+        for(auto item: weekSchedule)
+        {
+            if(item.toObject().value("code").toInt() == key)
+            {
+                return item.toObject().value("name").toString();
+            }
+        }
+    };
+
+    auto getTrainNum = [&references](const QString key){
+        QJsonArray trains = references.object().value("trains").toArray();
+        for(auto train: trains)
+        {
+            if(train.toObject().value("referenceCode").toString() == key)
+            {
+                return train.toObject().value("number").toString();
+            }
+        }
+    };
+
+    for(auto item: modelParamsJson.array())
+    {
+        QJsonObject result;
+        QJsonObject trip = item.toObject().value("trip").toObject();
+
+        result.insert("trainNum", getTrainNum(trip.value("trainCode").toString()));
+        result.insert("days", getWeekday(trip.value("timeTable").toObject().value("weekTimeTable").toInt()));
+        result.insert("departureStation", getStationName(trip.value("departureRouteStation").toObject().value("stationCode").toInt()));
+        result.insert("departureTime", trip.value("departureRouteStation").toObject().value("departureDatetime").toString());
+        result.insert("arrivalStation", getStationName(trip.value("arrivalRouteStation").toObject().value("stationCode").toInt()));
+        result.insert("arrivalTime", trip.value("arrivalRouteStation").toObject().value("arrivalDatetime").toString());
+
+        qDebug() << "Result\n" << result;
+
+        m_tickets.append(new DataModel(result));
+    }
+
+    emit ticketsModelChanged(m_tickets);
+}
+
 StationInfo::StationInfo(const QJsonObject value)
 {
     if (value.contains("id") && value.contains("value"))
     {
         m_id = value.value("id").toString();
         m_name = value.value("value").toString();
+
+        emit idChanged(m_id);
+        emit nameChanged(m_name);
+    }
+    else if (value.contains("value") && value.contains("label"))
+    {
+        m_id = value.value("value").toString();
+        m_name = value.value("label").toString();
 
         emit idChanged(m_id);
         emit nameChanged(m_name);

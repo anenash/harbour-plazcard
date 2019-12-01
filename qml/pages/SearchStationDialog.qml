@@ -1,27 +1,33 @@
 import QtQuick 2.6
 import Sailfish.Silica 1.0
+import Nemo.Configuration 1.0
 
 import plazcard.Info 1.0
 
 
 Dialog {
-
     id: d
 
     property string stationName
     property string id
 
     onBackNavigationChanged: {
-        serachStations.clearStationsList()
+        searchStations.clearStationsList()
+    }
+
+    ConfigurationValue {
+        id: suburbanSearch
+
+        key: "/suburbanSearch"
     }
 
     Component.onCompleted: {
         searchField.focus = true
+        searchStations.setSearchType(suburbanSearch.value)
     }
 
-
     Info {
-        id: serachStations
+        id: searchStations
 
         onStationsModelChanged: {
             internal.loadData = false
@@ -42,7 +48,7 @@ Dialog {
         function searchStation() {
             var searchText = searchField.text.replace(/ /g, '%20')
 
-            serachStations.getStations(searchText)
+            searchStations.getStations(searchText)
             internal.loadData = true
             internal.finishSearching = false
         }
@@ -54,7 +60,7 @@ Dialog {
         repeat: false
 
         onTriggered: {
-            serachStations.clearStationsList()
+            searchStations.clearStationsList()
             internal.searchStation()
         }
     }
@@ -97,7 +103,7 @@ Dialog {
             anchors.top: searchField.bottom
             anchors.bottom: parent.bottom
 
-            model: serachStations.stationsModel
+            model: searchStations.stationsModel
 
             delegate: ListItem {
                 height: Theme.itemSizeExtraSmall
